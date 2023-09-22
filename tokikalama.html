@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOKI KALAMA</title>
+    <style>
+ 
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+        }
+
+        h1 {
+            color: #008;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1em;
+        }
+        h1:before {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            display: inline-block;
+            width: 60px;
+            height: 5px;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            background-color: #008;
+            border-radius: 2px;
+        }
+
+        textarea{
+            display: inline-block;
+            vertical-align: middle;
+            align-items: center;
+            resize: none;
+            font-size: large;
+            color: #008;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            min-height: 200px;
+            border-radius:10px;
+            border-color: #008;
+            box-shadow: none;
+            padding: 2px 8px;
+        }
+
+        textarea:focus{
+            border-color: #008;
+            outline: none;
+        }
+
+        textarea::placeholder{
+            color: #aaf;
+        }
+
+
+        .btn-square-soft {
+            display: inline-block;
+            position: relative;
+            text-decoration: none;
+            color: #fff;
+            width: 120px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 5px;
+            text-align: center;
+            overflow: hidden;
+            font-weight: bold;
+            font-size: large;
+            background: #008;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
+        }
+
+        .btn-square-soft:active {
+            /*押したとき*/
+            -webkit-transform: translateY(2px);
+            transform: translateY(2px);/*沈むように*/
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+        }
+
+        div {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #ff8;
+            padding-bottom: 100px;
+            min-width: 400px;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <h1>TOKI KALAMA</h1>
+        <br>
+        <textarea spellcheck="false" placeholder="o insa e toki pona 
+kepeken sitelen Lasin"></textarea>
+        <br>
+        <button class="btn-square-soft">kalama</button>
+    </div>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const textareaEls = document.querySelectorAll("textarea");
+
+            textareaEls.forEach((textareaEl) => {
+                textareaEl.setAttribute("style", `height: ${textareaEl.scrollHeight}px;`);
+                textareaEl.addEventListener("input", setTextareaHeight);
+            });
+
+            function setTextareaHeight() {
+                this.style.height = "auto";
+                this.style.height = `${this.scrollHeight}px`;
+            }
+        });
+    </script>
+</body>
+</html>

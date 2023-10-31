@@ -96,15 +96,17 @@
         }
 
     </style>
+    <script src="script.js"></script>
 </head>
 <body>
     <div>
         <h1>TOKI KALAMA</h1>
         <br>
-        <textarea spellcheck="false" placeholder="o insa e toki pona 
-kepeken sitelen Lasin"></textarea>
+        <textarea id="lasin" spellcheck="false" 
+            placeholder="o insa e toki pona kepeken sitelen Lasin"
+        ></textarea>
         <br>
-        <button class="btn-square-soft">kalama</button>
+        <button onlcick="kalama('lasin')" class="btn-square-soft">kalama</button>
     </div>
 
     <script>

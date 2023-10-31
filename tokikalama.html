@@ -96,119 +96,27 @@
         }
 
     </style>
-    <script>
-        const accessory = /(\r\n|\n|[,;:!?\.])/;
-
-        function kalama(id){
-            
-            //scrap
-            var tkpn = document.getElementById(id).value.split(" ");
-            for(var i = 0; i < tkpn.length; i++){
-                tkpn[i] = tkpn[i].split(accessory);
-            }
-            tkpn = tkpn.flat().filter(Boolean);
-        
-            //convert
-            for(var i = 0; i < tkpn.length; i++){
-                tkpn[i] = tkpn[i].toLowerCase().replace(
-                    /([kstnpmjlw])?([aiueo])(n(?![aiueo]))?/g,
-                    (_,c,v,n) => "" + !!c*" kstnpmjlw".indexOf(c) + ("aiueo".indexOf(v) + !!n*5)
-                );
-            }
-        
-            console.log(tkpn);
-        
-            //play sounds
-            if(playing){
-                return;
-            }
-            playing = true;
-            ctx = new AudioContext();
-            for(var i = 0; i < tkpn.length; i++){
-                for(var j = 0; j < tkpn[i].length; j++){
-                    tone(tkpn[i][j], 0.5/tkpn[i].length);
-                    sleep(t, ()=> { t = 0; playing = false; });
-                }
-            }
-        
-        }
-        
-        var playing = false;
-        
-        var t = 0; // do not change this value
-        function tone(tone, len) {
-        
-            var bass = document.getElementById("bass").value;
-            var equal = document.getElementById("equal").value;
-            
-            osc = new OscillatorNode(ctx);
-        
-            osc.type = (document.getElementById("type") != null)? document.getElementById("type").value : "square";
-        
-            osc.frequency.value = accessory.test(tone)? 0 : bass*Math.pow(2, tone/equal);
-            
-            osc.connect(ctx.destination);
-            
-            osc.start(t);
-            osc.stop(t += len);
-        
-        }
-        
-        function sleep(waitSec, callbackFunc) {
-        
-            var spanedSec = 0;
-        
-            var waitFunc = ()=> {
-        
-                spanedSec++;
-        
-                if (spanedSec >= waitSec) {
-                    if (callbackFunc) callbackFunc();
-                    return;
-                }
-        
-                clearTimeout(id);
-                id = setTimeout(waitFunc, 1000);
-        
-            };
-        
-            var id = setTimeout(waitFunc, 1000);
-        
-        }
-        
-        var arr = [];
-        
-        function zero(id){
-            document.getElementById(id).value = "";
-        }
-        
-        function reset(id){
-            zero(id);
-            for(var i in arr){
-                document.getElementById(id).value += (i+":"+arr[i]+" ");
-            }
-        }
-        
-        function setting(id){
-            var text = document.getElementById(id).value.split(/\r\n|\n|\ /).filter(Boolean);
-            //[構文チェック]
-            arr = [];
-            for(var i in text){
-                arr[text[i].split(":")[0]] = parseFloat(text[i].split(":")[1]);
-            }
-            console.log(arr);
-        }
-    </script>
+    <script src="script.js"></script>
 </head>
 <body>
     <div>
         <h1>TOKI KALAMA</h1>
         <br>
         <textarea id="lasin" spellcheck="false" 
-            placeholder="o insa e toki pona kepeken sitelen Lasin"
+        placeholder="o insa e toki pona
+kepeken sitelen Lasin"
         ></textarea>
         <br>
-        <button onlcick="kalama('lasin')" class="btn-square-soft">kalama</button>
+        FREQ:<input type="text" id="bass" value="440.0" style="width: 4em;">
+        tET:<input type="text" id="equal" value="10" style="width: 2em;">
+        TYPE:<select id="type">
+            <option value="square">square</option>
+            <option value="sine">sine</option>
+            <option value="triangle">triangle</option>
+            <option value="sawtooth">sawtooth</option>
+        </select>
+        <br>
+        <button onclick="kalama('lasin')" class="btn-square-soft">kalama</button>
     </div>
 
     <script>

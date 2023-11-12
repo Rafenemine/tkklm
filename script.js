@@ -29,7 +29,6 @@ function kalama(id){
     for(var i = 0; i < tkpn.length; i++){
         for(var j = 0; j < tkpn[i].length; j++){
             tone(tkpn[i][j], 0.5/tkpn[i].length);
-            sleep(t, ()=> { t = 0; playing = false; });
         }
     }
     setTimeout(()=>{playing = false}, t*1000);

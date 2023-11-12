@@ -1,6 +1,9 @@
 const accessory = /(\r\n|\n|[,;:!?\.])/;
 
 function kalama(id){
+    if(playing) return;
+    
+    playing = true;
     
     //scrap
     var tkpn = document.getElementById(id).value.split(" ");
@@ -20,10 +23,6 @@ function kalama(id){
     console.log(tkpn);
 
     //play sounds
-    if(playing){
-        return;
-    }
-    playing = true;
     ctx = new AudioContext();
     t = 0;
     for(var i = 0; i < tkpn.length; i++){

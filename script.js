@@ -25,12 +25,14 @@ function kalama(id){
     }
     playing = true;
     ctx = new AudioContext();
+    t = 0;
     for(var i = 0; i < tkpn.length; i++){
         for(var j = 0; j < tkpn[i].length; j++){
             tone(tkpn[i][j], 0.5/tkpn[i].length);
             sleep(t, ()=> { t = 0; playing = false; });
         }
     }
+    setTimeout(()=>{playing = false}, t*1000);
 
 }
 
@@ -52,28 +54,6 @@ function tone(tone, len) {
     
     osc.start(t);
     osc.stop(t += len);
-
-}
-
-function sleep(waitSec, callbackFunc) {
-
-    var spanedSec = 0;
-
-    var waitFunc = ()=> {
-
-        spanedSec++;
-
-        if (spanedSec >= waitSec) {
-            if (callbackFunc) callbackFunc();
-            return;
-        }
-
-        clearTimeout(id);
-        id = setTimeout(waitFunc, 1000);
-
-    };
-
-    var id = setTimeout(waitFunc, 1000);
 
 }
 
